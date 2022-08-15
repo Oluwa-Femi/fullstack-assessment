@@ -1,15 +1,14 @@
 import express from "express";
 import { Router } from "express";
-// import userRouter from '../resources/users/router';
-import { User } from "../resources/users/model";
+import { createUserAccount } from '../resources/users/controllers';
+import { checkExistingValues } from '../resources/auth/auth.middleware';
 
 export const app = express();
 const router = Router();
 
-router.post("/register", async (req, res) => {
-  const { firstname, lastname, email, password } = req;
-  // console.log(req.body)
-  // res.json({ status: "ok"})
-});
+router.post("/register",
+checkExistingValues,
+createUserAccount
+);
 
 export default router;

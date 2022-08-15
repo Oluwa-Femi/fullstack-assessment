@@ -2,10 +2,17 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import uniqueValidator from "mongoose-unique-validator";
 
-// mongoose.set("useCreateIndex", true);
+mongoose.set("useCreateIndex", true);
 
 const userSchema = new mongoose.Schema(
   {
+    email: {
+      type: String,
+      lowercase: true,
+      required: [true, "email field is required"],
+      trim: true,
+      unique: true
+    },
     firstname: {
       type: String,
       required: [true, "first name field is required"],
@@ -16,17 +23,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "last name field is required"],
       trim: true,
     },
-    email: {
-      type: String,
-      lowercase: true,
-      unique: true,
-      required: [true, "email field is required"],
-      trim: true,
-    },
     password: {
       type: String,
       required: [true, "Password is required"],
-    }
+    },
   },
   { timestamps: true }
 );
