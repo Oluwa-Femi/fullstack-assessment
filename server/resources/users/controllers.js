@@ -4,8 +4,6 @@ import { success, failure } from "../../resources/helpers/response";
 import asyncWrapper from "../helpers/asyncWrapper";
 import {
   getOneByEmail,
-  getUserPassword,
-  updatePassword,
 } from "../../utils/crud";
 import { newToken } from "../auth/auth.middleware";
 
@@ -54,22 +52,14 @@ export const login = asyncWrapper(async (req, res) => {
   });
 });
 
-export const updateUserPassword = async (req, res) => {
-  const { userId, password: newPassword } = req.body;
-  const user = await getUserPassword(User, req.user._id);
-  const currentPassword = user.password;
-  const comparePwd = await bcrypt.compare(newPassword, currentPassword);
-  if (comparePwd) {
-    return failure(422, "fail", "Kindly enter a new password", res);
-  }
-  const hashedPwd = await bcrypt.hash(newPassword, 12);
-  const data = {
-    _id: req.user._id,
-    password: hashedPwd,
-  };
-  const updatedDoc = await updatePassword(User, data);
-  if (hashedPwd == updatedDoc.password) {
-    return success(res, 200, { message: "Password updated successfully" });
-  }
-  return failure(422, "fail", "Operation unsuccessful", res);
+export const sendPasswordVerifyLink = async (req, res) => {
+  const {
+    body: { email }
+  } = req;
+  const user = await User.findOne({ email });
+  if (!user) return failure(403, 'Invalid input', res);
+  const { id } = user;
+  const token = await newToken({ id });
+  await saveToken(token, email);
+  return success(res, 200, 'Password reset link sent successfully. Kindly check your email', null);
 };
