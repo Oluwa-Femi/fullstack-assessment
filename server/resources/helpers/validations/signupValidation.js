@@ -4,8 +4,8 @@ import {
   lastnameRule,
   emailRule,
   passwordRule,
-} from './rule/rules';
-import { failure } from '../helpers/response';
+} from '../rules';
+import { failure } from '../response';
 
 export default (req, res, next) => {
   const { body } = req;

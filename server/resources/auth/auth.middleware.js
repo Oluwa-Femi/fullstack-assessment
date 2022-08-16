@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from '../../config';
-import { findByField } from '../../utils/crud';
+import { findByField, getOneByEmailUser } from '../../utils/crud';
 import { User } from "../users/model";
 import { failure } from '../helpers/response';
 
