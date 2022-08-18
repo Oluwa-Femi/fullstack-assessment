@@ -7,45 +7,46 @@ import { useFormik } from "formik";
 import Logo from "../assets/logo.png";
 import { Input } from "../components/input";
 import { signUp } from "../redux/actions";
+import { SignupValidations } from "../utils/validations";
+import { Button } from "../components/button";
 
 function Signup() {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const handleClick = useCallback(
-    async (values) => {
-      const payload = {
-        name: values.first_name + " " + values.last_name,
-        email: values.email.toLowerCase(),
-        password: values.password,
-      };
-      await signUp(payload, history)(dispatch);
-    },
-    [dispatch]
-  );
-
-  const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
-    useFormik({
-    //   validationSchema: SignupValidations,
-      initialValues: {
-        first_name: "",
-        last_name: "",
-        email: "",
-        password: "",
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const handleClick = useCallback(
+      async (values) => {
+        const payload = {
+          name: values.first_name + " " + values.last_name,
+          email: values.email.toLowerCase(),
+          password: values.password
+        };
+        await signUp(payload, history)(dispatch);
       },
-      onSubmit: () => handleClick(values),
-      onReset: () => null,
-    });
+      [dispatch]
+    );
+  
+    const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
+      useFormik({
+        validationSchema: SignupValidations,
+        initialValues: {
+          first_name: "",
+          last_name: "",
+          email: "",
+          password: ""
+        },
+        onSubmit: () => handleClick(values),
+        onReset: () => null
+      });
   return (
     <div className="auth">
       <div className="panel">
         <div className="p-banner">
-          <img src={Logo} alt="mono logo" />
-          <br />
+          <img src={Logo} alt="mono logo" /><br/>
           <p>Track all your bank expenses in one place</p>
         </div>
         <div className="p-container">
           <div className="multi-inpt">
-            <Input
+              <Input
               className=" mb-8"
               type="text"
               placeholder="First Name"
@@ -57,8 +58,8 @@ function Signup() {
               onBlur={handleBlur("first_name")}
               error={errors.first_name}
               touched={touched.first_name}
-            />
-            <Input
+              />
+              <Input
               className=" mb-8"
               type="text"
               placeholder="Last Name"
@@ -70,7 +71,7 @@ function Signup() {
               onBlur={handleBlur("last_name")}
               error={errors.last_name}
               touched={touched.last_name}
-            />
+              />
           </div>
           <Input
             className=" mb-8"
@@ -102,17 +103,17 @@ function Signup() {
             <p></p>
             <p> I forgot my password</p>
           </div>
-          <button title="get started" type="primary" onClick={handleSubmit} />
-          <p className="tny-txt secondary">
-            Already have an account?{" "}
-            <a className="link" onClick={() => history.push("/")}>
-              Sign in
-            </a>
-          </p>
+          <Button
+            title="get started"
+            type="primary"
+            onClick={handleSubmit}
+          />
+          <p className="tny-txt secondary">Already have an account? <a className="link" onClick={()=>history.push("/")}>Sign in</a></p>
         </div>
       </div>
+      
     </div>
   );
-}
-
-export default Signup;
+  }
+  
+  export default Signup;
