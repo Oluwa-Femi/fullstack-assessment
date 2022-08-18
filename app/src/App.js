@@ -4,13 +4,13 @@ import "./App.css";
 function App() {
   const idleTimeOut = () => {
     let time;
-    window.onload = reset;
-    document.onkeyup = reset;
-    document.onmousemove = reset;
+    window.onload = resetTimer;
+    document.onkeyup = resetTimer;
+    document.onmousemove = resetTimer;
 
-    function reset() {
-      clearTimeOut(time);
-      time = setTimeOut(() => localStorage.removeItem("_mt_"), 36000000);
+    function resetTimer() {
+      clearTimeout(time);
+      time = setTimeout(() => localStorage.removeItem("_mt_"), 36000000);
     }
   };
 
