@@ -8,45 +8,48 @@ import Logo from "../assets/logo.png";
 import { Input } from "../components/input";
 import { login } from "../redux/actions";
 import { Button } from "../components/button";
-import { LoginValidations } from "../utils/validations"
+import { LoginValidations } from "../utils/validations";
 
 function Login() {
-    const history = useHistory();
-    const dispatch = useDispatch();
-  
-    const [rememberMe, setrememberMe] = useState(localStorage.getItem("r_me") || false);
-  
-    const handleSwitch = () => {
-      setrememberMe(!rememberMe);
-      localStorage.setItem("r_me", !rememberMe);
-    }
-  
-    const handleClick = useCallback(
-      async (values) => {
-        const payload = {
-          email: values.email.toLowerCase(),
-          password: values.password
-        };
-        await login(payload, history)(dispatch);
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const [rememberMe, setrememberMe] = useState(
+    localStorage.getItem("r_me") || false
+  );
+
+  const handleSwitch = () => {
+    setrememberMe(!rememberMe);
+    localStorage.setItem("r_me", !rememberMe);
+  };
+
+  const handleClick = useCallback(
+    async (values) => {
+      const payload = {
+        email: values.email.toLowerCase(),
+        password: values.password,
+      };
+      await login(payload, history)(dispatch);
+    },
+    [dispatch]
+  );
+
+  const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
+    useFormik({
+      validationSchema: LoginValidations,
+      initialValues: {
+        email: "",
+        password: "",
       },
-      [dispatch]
-    );
-  
-    const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
-      useFormik({
-        validationSchema: LoginValidations,
-        initialValues: {
-          email: "",
-          password: ""
-        },
-        onSubmit: () => handleClick(values),
-        onReset: () => null
-      });
+      onSubmit: () => handleClick(values),
+      onReset: () => null,
+    });
   return (
     <div className="auth">
       <div className="panel">
         <div className="p-banner">
-          <img src={Logo} alt="mono logo" style={{opacity:"1"}} /><br/>
+          <img src={Logo} alt="mono logo" style={{ opacity: "1" }} />
+          <br />
           <p>Securely login to your account</p>
         </div>
         <div className="p-container">
@@ -79,24 +82,28 @@ function Login() {
             touched={touched.password}
           />
           <div className="actions">
-            <div style={{display:"flex"}}>
-              <input checked={rememberMe} type="checkbox" className="checkbox" onChange={handleSwitch} />
+            <div style={{ display: "flex" }}>
+              <input
+                checked={rememberMe}
+                type="checkbox"
+                className="checkbox"
+                onChange={handleSwitch}
+              />
               <p className="ml-5">Remember me</p>
             </div>
             <p> I forgot my password</p>
           </div>
-          <Button
-            title="log in"
-            type="primary"
-            onClick={handleSubmit}
-          />
-          <p className="tny-txt secondary">Don’t have an account? <a className="link" onClick={()=> history.push("/create-user")}>Sign up</a></p>
+          <Button title="log in" type="primary" onClick={handleSubmit} />
+          <p className="tny-txt secondary">
+            Don’t have an account?{" "}
+            <a className="link" onClick={() => history.push("/register-user")}>
+              Sign up
+            </a>
+          </p>
         </div>
       </div>
-      
     </div>
   );
-  }
-  
-  export default Login;
-  
+}
+
+export default Login;
