@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Logo from "../assets/logo2.png"
-
+// import Logo from "../assets/logo2.png"
 
 const Layout = ({children,pathname}) => {
     const history = useHistory();
@@ -18,7 +18,7 @@ const Layout = ({children,pathname}) => {
     return ( 
         <div className="private-cont">
             <div className="menu">
-                <img src={Logo} alt="mono logo" />  
+                {/* <img src={Logo} alt="mono logo" />   */}
                 <ul>
                     {menuItems?.map((item,i) => (
                         <li

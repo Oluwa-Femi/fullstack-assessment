@@ -1,11 +1,12 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import Logo from "../../assets/logo.png";
-import { Input } from "../../components/input";
-import { SignupValidations } from "../../validations";
-import { signUp } from "../../redux/actions/authAction";
+import Logo from "../assets/logo.png";
+import { Input } from "../components/input";
+import { signUp } from "../redux/actions";
 
 function Signup() {
   const history = useHistory();
@@ -24,7 +25,7 @@ function Signup() {
 
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
     useFormik({
-      validationSchema: SignupValidations,
+    //   validationSchema: SignupValidations,
       initialValues: {
         first_name: "",
         last_name: "",
