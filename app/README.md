@@ -1,5 +1,9 @@
 # Mono frontend assessment. 
 
+## Live link
+
+
+
 ## Requirement
 
 (NB. This is required to be completed using react.js or vanilla JS)
@@ -12,14 +16,14 @@
 
 Pay attention to user experience and little details in your UI and make your UI mobile responsive.
 
-### Available Scripts
+### SET-UP (To set up project on local)
+In the terminal, you can run:
+* git clone `https://github.com/Oluwa-Femi/fullstack-assessment`
+* cd app
+* create a .env file in the root directory replicating the keys in the .env.sample file. Attach values to the keys. 
+* npm install - to set up Node modules and install packages
+* npm run start - to spin the application
 
-In the project directory, you can run:
-
-### `npm start`
-
-
-**Note:  `eject`,**
 
 
 
