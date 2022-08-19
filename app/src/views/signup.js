@@ -16,7 +16,8 @@ function Signup() {
     const handleClick = useCallback(
       async (values) => {
         const payload = {
-          name: values.first_name + " " + values.last_name,
+          firstname: values.firstname, 
+          lastname: values.lastname,
           email: values.email.toLowerCase(),
           password: values.password
         };
@@ -29,8 +30,8 @@ function Signup() {
       useFormik({
         validationSchema: SignupValidations,
         initialValues: {
-          first_name: "",
-          last_name: "",
+          firstname: "",
+          lastname: "",
           email: "",
           password: ""
         },
@@ -50,27 +51,27 @@ function Signup() {
               className=" mb-8"
               type="text"
               placeholder="First Name"
-              name="first_name"
+              name="firstname"
               maskChar=""
               autoComplete="off"
-              value={values.first_name}
-              onChange={handleChange("first_name")}
-              onBlur={handleBlur("first_name")}
-              error={errors.first_name}
-              touched={touched.first_name}
+              value={values.firstname}
+              onChange={handleChange("firstname")}
+              onBlur={handleBlur("firstname")}
+              error={errors.firstname}
+              touched={touched.firstname}
               />
               <Input
               className=" mb-8"
               type="text"
               placeholder="Last Name"
-              name="last_name"
+              name="lastname"
               maskChar=""
               autoComplete="off"
-              value={values.last_name}
-              onChange={handleChange("last_name")}
-              onBlur={handleBlur("last_name")}
-              error={errors.last_name}
-              touched={touched.last_name}
+              value={values.lastname}
+              onChange={handleChange("lastname")}
+              onBlur={handleBlur("lastname")}
+              error={errors.lastname}
+              touched={touched.lastname}
               />
           </div>
           <Input

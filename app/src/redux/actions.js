@@ -28,7 +28,7 @@ export const signUp = (body, history) => async (dispatch) => {
   try {
     // Set loading to true before endpoint call
     dispatch({ type: IS_LOADING_TRUE });
-    const response = await postApi(`auth/register`, body);
+    const response = await postApi(`auth/sign-up`, body);
     if (response.data.email) {
       dispatch({ type: IS_LOADING_FALSE });
       return history.push("/");

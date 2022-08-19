@@ -13,9 +13,9 @@ export const LoginValidations = () =>
 
 export const SignupValidations = () =>
     Yup.object().shape({
-        first_name: Yup.string()
+        firstname: Yup.string()
         .required("firstName is required"),
-        last_name: Yup.string()
+        lastname: Yup.string()
         .required("lastName is required"),
         email: Yup.string()
         .email("Invalid email, please provide a valid email.")
