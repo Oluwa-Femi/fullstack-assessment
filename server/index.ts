@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import chalk from "chalk";
 import config from "./config";
-// import Routes from "./routes";
+import Routes from "./routes";
 import CronScheduler from "./cron/cronscheduler";
 import helmet from "helmet";
 import compression from "compression";
@@ -27,6 +27,10 @@ const start = async () => {
   app.use(compression());
   app.use(cors());
 
+  CronScheduler.startJob();
+
+  app.use("/api/v1", Routes.route(router));
+
   app.get("/", (req, res) => {
     console.log("Whatever")
     res.status(200).json({
@@ -34,17 +38,12 @@ const start = async () => {
     });
   });
 
-
   app.use("*", (req, res) =>
     res.status(404).json({
       status: 404,
       message: "No endpoint matches that URL",
     })
   );
-
-  CronScheduler.startJob();
-
-  // app.use("/api/v1", Routes.route(router));
 
   app.listen(config.port);
 };
