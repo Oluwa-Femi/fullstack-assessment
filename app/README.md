@@ -23,7 +23,5 @@ In the terminal, you can run:
 * create a .env file in the root directory replicating the keys in the .env.sample file. Attach values to the keys. 
 * npm install - to set up Node modules and install packages
 * npm run start - to spin the application
-
-
-
-
+* onboard as a user by signing up 
+* link accounts to the user (You can click on the sandbox filler on the form to auto populate)
