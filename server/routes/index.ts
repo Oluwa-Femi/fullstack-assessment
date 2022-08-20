@@ -1,12 +1,15 @@
-import express from "express";
-import { Router } from "express";
-import authRouter from '../resources/auth/auth.router';
-import accountRouter from '../resources/account/auth.router';
+import AccountRoutes from '../resources/account/routes';
+import AuthRoutes from '../resources/auth/routes';
 
-export const app = express();
-const router = Router();
+import type { IRouter } from 'express';
 
-router.use('/auth', authRouter);
-router.use('/accounts', accountRouter);
+class Routes {
+    static route(router: IRouter): IRouter {
+        AuthRoutes.route(router);
+        AccountRoutes.route(router);
 
-export default router;
+    return router;
+    }
+}
+
+export default Routes;  

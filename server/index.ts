@@ -1,10 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
+import morgan from "morgan";
 import cors from "cors";
 import chalk from "chalk";
 import config from "./config";
 import Routes from "./routes";
-import CronScheduler from "./cron/cronscheduler";
+import CronScheduler from "./helpers/cron/cronscheduler";
 import helmet from "helmet";
 import compression from "compression";
 
@@ -18,6 +19,7 @@ const start = async () => {
     .catch(() => console.log(`${chalk.red()} DB CONNECTION ERROR`));
 
   app.use(cors());
+  app.use(morgan("dev"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(helmet());
@@ -32,12 +34,12 @@ const start = async () => {
   app.use("/api/v1", Routes.route(router));
 
   app.get("/", (req, res) => {
-    console.log("Whatever")
     res.status(200).json({
       message: "Welcome to Mono API - A backend financial provider",
     });
   });
 
+  //Error handling
   app.use("*", (req, res) =>
     res.status(404).json({
       status: 404,
