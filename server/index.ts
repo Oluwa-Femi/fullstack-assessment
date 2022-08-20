@@ -8,7 +8,7 @@ import Routes from "./routes";
 import CronScheduler from "./helpers/cron/cronscheduler";
 import helmet from "helmet";
 import compression from "compression";
-import swaggerUi from "swagger-ui-express";
+// import swaggerUi from "swagger-ui-express";
 // import * as swaggerDocument from "./swagger.json";
 
 export const app = express();
