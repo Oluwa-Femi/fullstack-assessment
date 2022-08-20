@@ -8,6 +8,8 @@ import Routes from "./routes";
 import CronScheduler from "./helpers/cron/cronscheduler";
 import helmet from "helmet";
 import compression from "compression";
+import swaggerUi from "swagger-ui-express";
+// import * as swaggerDocument from "./swagger.json";
 
 export const app = express();
 const router = express.Router();
@@ -38,6 +40,9 @@ const start = async () => {
       message: "Welcome to Mono API - A backend financial provider",
     });
   });
+
+  //Swagger
+  // app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   //Error handling
   app.use("*", (req, res) =>
