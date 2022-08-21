@@ -31,7 +31,7 @@ export default function SignUp({ handleComponentChange }) {
     setLoading(true);
 
     try {
-      const { data } = await axios.post('/auth/sign-up', info);
+      const { data } = await axios.post('/auth/register', info);
       // set bearer token for subsequent requests
       axios.defaults.headers.common = {
         Authorization: `Bearer ${data.data.token}`,
