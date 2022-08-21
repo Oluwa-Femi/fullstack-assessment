@@ -8,8 +8,8 @@ import Routes from "./routes";
 import CronScheduler from "./helpers/cron/cronscheduler";
 import helmet from "helmet";
 import compression from "compression";
-// import swaggerUi from "swagger-ui-express";
-// import * as swaggerDocument from "./swagger.json";
+import swaggerUI from 'swagger-ui-express';
+import swaggerSpec from './docs/config/swaggerDef';
 
 export const app = express();
 const router = express.Router();
@@ -37,13 +37,16 @@ const start = async () => {
 
   app.get("/", (req, res) => {
     res.status(200).json({
-      message: "Welcome to Mono API - A backend financial provider",
+      message: "Welcome to Mono API - A backend implementation by Femi Oluwatola",
     });
   });
 
-  //Swagger
-  // app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  app.get('/api-docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+  });
 
+  app.use('/api/v1/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
   //Error handling
   app.use("*", (req, res) =>
     res.status(404).json({
